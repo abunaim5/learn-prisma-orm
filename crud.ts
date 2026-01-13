@@ -82,18 +82,34 @@ async function run() {
     // console.log(deleteUser);
 
     // get single user data
-    const getUserData = await prisma.user.findUnique({
-        where: {
-            id: 3
-        },
-        select: {
-            id: true,
-            posts: true,
-            profile: true
-        }
-    })
+    // const getUserData = await prisma.user.findUnique({
+    //     where: {
+    //         id: 3
+    //     },
+    //     select: {
+    //         id: true,
+    //         posts: true,
+    //         profile: true
+    //     }
+    // })
 
-    console.log(getUserData);
+    // console.log(getUserData);
+
+    // upsert operation
+    const upsertUser = await prisma.user.upsert({
+        where: {
+            email: 'naim@mail.com'
+        },
+        update: {
+            name: 'Abu Naim 2'
+        },
+        create: {
+            name: 'Abu Naim',
+            email: 'naim@mail.com'
+        }
+    });
+
+    console.log(upsertUser)
 }
 
 run();
